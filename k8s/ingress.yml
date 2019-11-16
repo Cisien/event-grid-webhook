@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    certmanager.k8s.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+  name: iot-webhook-ingress
+  namespace: iot
+spec:
+  rules:
+  - host: iot-webhook.cisien.com
+    http:
+      paths:
+      - backend:
+          serviceName: iot-webhook-service
+          servicePort: 80
+        path: /
+  tls:
+  - hosts:
+    - iot-webhook.cisien.com
+    secretName: iot-webhook-tls-cert-prod
