@@ -1,4 +1,5 @@
 using EventGridWebhook.Data;
+using EventGridWebhook.Mappers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -37,6 +38,9 @@ namespace EventGridWebhook
             {
                 PropertyNameCaseInsensitive = true
             });
+
+            services.AddSingleton<AirQualityMapper>();
+            services.AddSingleton<WeatherMapper>();
 
             services.Configure<KestrelServerOptions>(options => { options.AllowSynchronousIO = true; });
         }

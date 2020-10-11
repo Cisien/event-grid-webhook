@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EventGridWebhook.Data
 {
-    public class SensorEntry
+    public class AirQualitySensorEntry
     {
-        public long Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         public string DeviceId { get; set; }
         public DateTimeOffset SampleTime { get; set; }
         public long Uptime { get; set; }

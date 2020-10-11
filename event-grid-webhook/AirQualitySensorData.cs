@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace EventGridWebhook
 {
     [CompilerGenerated]
-    public class SensorData
+    public class AirQualitySensorData
     {
 #pragma warning disable IDE1006 // Naming Styles: Auto generated code
         public int Id { get; set; }

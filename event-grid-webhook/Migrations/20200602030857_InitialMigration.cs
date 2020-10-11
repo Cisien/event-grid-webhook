@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace EventGridWebhook.Data.Migrations
+namespace EventGridWebhook.Migrations
 {
     public partial class InitialMigration : Migration
     {
@@ -12,8 +12,8 @@ namespace EventGridWebhook.Data.Migrations
                 name: "Entries",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     DeviceId = table.Column<string>(nullable: true),
                     SampleTime = table.Column<DateTimeOffset>(nullable: false),
                     Uptime = table.Column<long>(nullable: false),

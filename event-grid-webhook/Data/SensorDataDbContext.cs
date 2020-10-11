@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WeatherLinkClient;
 
 namespace EventGridWebhook.Data
 {
@@ -6,12 +7,15 @@ namespace EventGridWebhook.Data
     {
         public SensorDataDbContext(DbContextOptions<SensorDataDbContext> options) : base(options) { }
 
-        public DbSet<SensorEntry> Entries { get; set; }
+        public DbSet<AirQualitySensorEntry> AirQualityEntries { get; set; }
+        public DbSet<WeatherSensorEntry> WeatherEntries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<SensorEntry>().HasIndex(a => a.SampleTime);
-            builder.Entity<SensorEntry>().HasIndex(a => a.DeviceId);
+            builder.Entity<AirQualitySensorEntry>().HasIndex(a => a.SampleTime);
+            builder.Entity<AirQualitySensorEntry>().HasIndex(a => a.DeviceId);
+            builder.Entity<WeatherSensorEntry>().HasIndex(a => a.SampleTime);
+            builder.Entity<WeatherSensorEntry>().HasIndex(a => a.DeviceId);
         }
     }
 }
