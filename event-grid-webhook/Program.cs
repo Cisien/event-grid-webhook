@@ -13,7 +13,12 @@ namespace EventGridWebhook
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((ctx, builder) => {
+                .ConfigureAppConfiguration((ctx, builder) =>
+                {
+                    if (ctx.HostingEnvironment.IsProduction())
+                    {
+                        builder.AddKeyPerFile("/run/secrets", true);
+                    }
                     var builtConfig = builder.Build();
 
                     builder.AddAzureKeyVault(builtConfig["vault"], builtConfig["vault-clientId"], builtConfig["vault-secret"]);
