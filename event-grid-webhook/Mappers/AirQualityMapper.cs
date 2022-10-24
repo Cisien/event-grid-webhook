@@ -2,6 +2,7 @@
 using Microsoft.Azure.EventGrid.Models;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace EventGridWebhook.Mappers
     {
         private readonly ILogger<AirQualityMapper> _logger;
         private readonly JsonSerializerOptions _jsonSerializerOptions;
+        private readonly string[] _knownDevices = new[] { "80:7d:3a:61:62:2b", "a8:48:fa:cb:15:2a" };
 
         public AirQualityMapper(ILogger<AirQualityMapper> logger, JsonSerializerOptions serializerOptions)
         {
@@ -21,7 +23,7 @@ namespace EventGridWebhook.Mappers
 
         public Task<AirQualitySensorEntry> Map(IotHubDeviceTelemetryEventData iotData)
         {
-            if (iotData.SystemProperties["iothub-connection-device-id"] != "80:7d:3a:61:62:2b")
+            if (!_knownDevices.Contains(iotData.SystemProperties["iothub-connection-device-id"]))
             {
                 return Task.FromResult<AirQualitySensorEntry>(null);
             }
